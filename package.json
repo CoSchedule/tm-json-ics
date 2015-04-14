@@ -1,11 +1,11 @@
 {
   "name": "tm-json-ics",
   "description": "Takes simple JSON for events and converts it to an ICS file.",
-  "version": "0.1.2",
+  "version": "0.1.333",
   "private": true,
   "dependencies": {
-    "underscore": "1.4.4",
-    "moment": "2.0.0"
+    "moment": "^2.10.2",
+    "underscore": "^1.8.3"
   },
   "engines": {
     "node": "0.8.x",
