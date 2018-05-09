@@ -1,17 +1,17 @@
-var _ = require('underscore')._;
-var moment = require('moment');
+const _ = require('lodash');
+const moment = require('moment');
 
 module.exports = function(config) {
 
-    var toUTC = function(unixTimestamp) {
+    const toUTC = function(unixTimestamp) {
         //javascript uses milliseconds, not seconds since the epoch.
-        var timestamp = parseInt(unixTimestamp) * 1000;
-        var date = moment(timestamp).utc();
+        const timestamp = parseInt(unixTimestamp) * 1000;
+        const date = moment(timestamp).utc();
         return date.format('YYYYMMDDTHHmmss[Z]')
     };
 
-    var addLine = function(title, line) {
-        var buffer = '';
+    const addLine = function(title, line) {
+        let buffer = '';
 
         if (line === undefined || line === null) {
             return buffer;
@@ -21,7 +21,7 @@ module.exports = function(config) {
             buffer += title + ':' + line.substr(0, 73) + '\r\n';
         } else {
             buffer += title + ':';
-            var maxLen = 73 - title.length + 1;
+            let maxLen = 73 - title.length + 1;
 
             while (line.length >= maxLen) {
                 //The space the the end of this string is SUPER-IMPORTANT!
@@ -37,8 +37,8 @@ module.exports = function(config) {
         return buffer;
     };
 
-    var createICS = function(config) {
-        var buffer = '';
+    const createICS = function(config) {
+        let buffer = '';
 
         buffer += addLine('BEGIN', 'VCALENDAR');
         buffer += addLine('VERSION', '2.0');
@@ -57,11 +57,11 @@ module.exports = function(config) {
         return buffer;
     };
 
-    var processJSONEvents = function(events) {
-        var buffer = '';
+    const processJSONEvents = function(events) {
+        let buffer = '';
         _.each(events, function(evt) {
 
-            var skip = false;
+            let skip = false;
             if (evt.id === undefined) {
                 console.log('Must Specify a unique id.')
                 skip = true;
@@ -80,7 +80,7 @@ module.exports = function(config) {
                 buffer += addLine('DESCRIPTION', escapeText(evt.description));
                 buffer += addLine('DTSTAMP', toUTC(moment().unix()));
                 buffer += addLine('DTSTART', toUTC(evt.start));
-                if (evt.end == undefined) {
+                if (evt.end === undefined) {
                     //If there isn't an end time, assume it's an instantaneous
                     //event, and have it end one second after it starts.
                     buffer += addLine('DTEND', toUTC(evt.start + 1));
@@ -97,8 +97,8 @@ module.exports = function(config) {
         return buffer;
     };
 
-    var escapeText = function(s) {
-        var t;
+    const escapeText = function(s) {
+        let t;
         if (s == null) {
             return s;
         }
