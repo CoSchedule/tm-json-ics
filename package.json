@@ -1,12 +1,15 @@
 {
-  "name": "tm-json-ics",
+  "name": "@coschedule/tm-json-ics",
   "description": "Takes simple JSON for events and converts it to an ICS file.",
   "version": "1.4.0",
-  "private": true,
   "dependencies": {
     "moment": "^2.10.2",
     "underscore": "^1.8.3"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "git://github.com/coschedule/tm-json-ics.git",
   "engines": {
     "node": ">= 0.8.x",
     "npm": ">= 1.1.x"
